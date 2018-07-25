@@ -1,0 +1,4 @@
+package-as: EpicMusicPlayer_MP3
+
+required-dependencies:
+    - EpicMusicPlayer

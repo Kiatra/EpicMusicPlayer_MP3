@@ -1,0 +1,8 @@
+## Interface: 80000
+## Title: EpicMusicPlayer: MP3
+## Notes: Custom music extension for EpicMusicPlayer
+## Author: yess
+## Version: 1.0
+## X-Category: Audio
+
+CustomMusic.lua
