@@ -16,8 +16,9 @@ CheckStartMode
 
 'check Windows Version
 dim indexTitle, indexArtist, indexAlbum, indexTime
+
 if getWindowsVersion() > "5.1" then
-	'Windows Vista, 7, 8 and 8.1
+	'Windows Vista, 7, 8, 8.1 and 10.0
 	indexTitle = 21
 	indexArtist = 20
 	indexAlbum = 14
