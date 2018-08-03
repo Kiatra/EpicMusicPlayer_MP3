@@ -4,5 +4,6 @@
 ## Author: yess
 ## Version: 1.0
 ## X-Category: Audio
+## X-Curse-Project-ID: 102376
 
 CustomMusic.lua
