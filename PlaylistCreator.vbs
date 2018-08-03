@@ -16,9 +16,8 @@ CheckStartMode
 
 'check Windows Version
 dim indexTitle, indexArtist, indexAlbum, indexTime
-
 if getWindowsVersion() > "5.1" then
-	'Windows Vista, 7, 8, 8.1 and 10.0
+	'Windows Vista, 7, 8 and 8.1
 	indexTitle = 21
 	indexArtist = 20
 	indexAlbum = 14
@@ -169,18 +168,17 @@ function getTime(file,objFolder)
 end function
 
 sub writePlaylistHeader(listName)
-	BinaryStream.WriteText "local playlist" & playlistIndex &  " = {" & Vbcrlf & "	{" & Vbcrlf
-	BinaryStream.WriteText "		[""ListName""] = """ & listName &"""," & Vbcrlf
-	BinaryStream.WriteText "		[""PlaylistVersion""] = ""3.1""," & Vbcrlf
-	BinaryStream.WriteText "		[""PlaylistType""] = ""generated""," & Vbcrlf
-	BinaryStream.WriteText "		[""MusicDir""] = """ & realtiveMusicFolder & """," & Vbcrlf
+	BinaryStream.WriteText "local playlist" & playlistIndex &  " = {" & Vbcrlf
+	BinaryStream.WriteText "	[""listName""] = """ & listName &"""," & Vbcrlf
+	BinaryStream.WriteText "	[""playlistVersion""] = ""4.0""," & Vbcrlf
+	BinaryStream.WriteText "	[""playlistType""] = ""generated""," & Vbcrlf
+	BinaryStream.WriteText "	{" & Vbcrlf
+	
 end sub
 
 function writeSong(outfile,path,album,time,title,artist)
 	if listCount > 1 then
 		BinaryStream.WriteText "	{" & Vbcrlf
-	else
-		BinaryStream.WriteText "        --first song" & Vbcrlf
 	end if
 	BinaryStream.WriteText "		[""Album""] = """ & album & ""","& Vbcrlf
 	BinaryStream.WriteText "		[""Song""] = """ & title & ""","& Vbcrlf
