@@ -17,7 +17,7 @@ CheckStartMode
 'check Windows Version
 dim indexTitle, indexArtist, indexAlbum, indexTime
 
-if getWindowsVersion() = "5.1" or getWindowsVersion() = "10." then
+if getWindowsVersion() > "5.1" or getWindowsVersion() = "10." then
 	'Windows Vista, 7, 8, 8.1, and 10 
 	indexTitle = 21
 	indexArtist = 20
@@ -30,7 +30,7 @@ elseif getWindowsVersion() = "5.1" then
 	indexAlbum = 17
 	indexTime = 21
 else
-	WScript.Echo "This playlist generator does not work with your windows version."
+	WScript.Echo "This playlist generator does not work with your windows version. Version: " & getWindowsVersion()
 	Wscript.Quit
 end if
 
