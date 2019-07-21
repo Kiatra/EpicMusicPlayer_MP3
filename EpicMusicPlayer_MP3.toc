@@ -1,4 +1,4 @@
-## Interface: 80000
+## Interface: 80200
 ## Title: EpicMusicPlayer: MP3
 ## Notes: Custom music extension for EpicMusicPlayer
 ## Author: yess
