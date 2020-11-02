@@ -1,6 +1,6 @@
 '****************************************************************************************************************
 '*                  			EpicMusicPlayer Playlist Creator
-'*                      		 	Copyright by yess
+'*                      		 	by Jessica Sommer
 '*
 '* if you want to modify or include this with your addon, please ask first.
 '*
