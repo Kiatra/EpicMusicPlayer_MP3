@@ -1,4 +1,4 @@
-## Interface: 90001
+## Interface: 90005
 ## Title: EpicMusicPlayer: MP3
 ## Notes: Custom music extension for EpicMusicPlayer
 ## Author: yess
