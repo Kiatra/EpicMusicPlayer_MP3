@@ -1,7 +1,12 @@
+#@retail@
 ## Interface: 90005
+#@end-retail@
+#@non-retail@
+# ## Interface: 11306
+#@end-non-retail@
 ## Title: EpicMusicPlayer: MP3
 ## Notes: Custom music extension for EpicMusicPlayer
-## Author: yess
+## Author: Kiatra
 ## Version: 1.0
 ## X-Category: Audio
 ## X-Curse-Project-ID: 102376
