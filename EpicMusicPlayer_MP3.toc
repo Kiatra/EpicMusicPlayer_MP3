@@ -9,5 +9,6 @@
 ## Version: 1.0
 ## X-Category: Audio
 ## X-Curse-Project-ID: 102376
+## X-WoWI-ID: 24777
 
 CustomMusic.lua
