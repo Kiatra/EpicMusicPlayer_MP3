@@ -1,6 +1,7 @@
 '****************************************************************************************************************
 '*                  			EpicMusicPlayer Playlist Creator
-'*                      		 	by Jessica Sommer
+'*                      		 by Jessica Sommer aka kiatra
+'*				   (https://github.com/Kiatra/EpicMusicPlayer_MP3)
 '*
 '* if you want to modify or include this with your addon, please ask first.
 '*
