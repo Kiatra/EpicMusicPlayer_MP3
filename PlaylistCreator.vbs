@@ -78,7 +78,7 @@ BinaryStream.CharSet = "utf-8"
 BinaryStream.Open
 
 'WScript.Echo "Generating the playlist, this may take some time..."
-BinaryStream.WriteText "--Created by PlaylistCreator version 4.0" & Vbcrlf
+BinaryStream.WriteText "--Created by PlaylistCreator.vbs version 4.0 (https://github.com/Kiatra/EpicMusicPlayer_MP3)" & Vbcrlf
 BinaryStream.WriteText "local EpicMusicPlayer = LibStub(""AceAddon-3.0""):GetAddon(""EpicMusicPlayer"")" & Vbcrlf
 BinaryStream.WriteText "if not EpicMusicPlayer then return end" & Vbcrlf
 
