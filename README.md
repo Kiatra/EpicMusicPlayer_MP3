@@ -1,5 +1,5 @@
 # EpicMusicPlayer_MP3
-Script to create a plylist for [EpicMusicPlayer](https://github.com/Kiatra/EpicMusicPlayer)
+Script to create a playlist for [EpicMusicPlayer](https://github.com/Kiatra/EpicMusicPlayer)
 
 Project on [CurseForge](https://www.curseforge.com/wow/addons/epicmusicplayer_mp3) 
 
