@@ -14,9 +14,9 @@ Project on [CurseForge](https://www.curseforge.com/wow/addons/epicmusicplayer_mp
 #### Creating a playlist of extracted game music for the main addon
 
 1. Extract the music with a exporter like [wow.tools.local](https://github.com/Marlamin/wow.tools.local/) or [wow.export](https://github.com/Kruithne/wow.export) 
-2. Create a folder 'gamemusic' and put the extracted sound folder there 
+2. Create a folder 'gamemusic' in the folder of this script and put the extracted sound folder there 
 (your folder structure should look like ./gamemusic/sound/music/...)
-3. Add a matching listfile.csv into the gamemusic folder.
+3. Add a [listfile.csv](https://github.com/wowdev/wow-listfile) into the folder of this script.
 4. Run PlaylistCreator.vbs (The created playlist 'GameMusic.lua' will be in the gamemusic folder.)
 5. Open the file GameMusic.lua and remove the first playlist in the file.
 6. Rename the playlist e.g 'Shadowlands'
