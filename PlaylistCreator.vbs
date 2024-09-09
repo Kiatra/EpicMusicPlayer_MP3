@@ -1,6 +1,6 @@
-'****************************************************************************************************************
-'*                  			EpicMusicPlayer Playlist Creator
-'*                      		 by Jessica Sommer aka kiatra
+'*************************************** EpicMusicPlayer Playlist Creator ***************************************
+'*                  					
+'*                      		by Jessica Sommer aka kiatra
 '*				   (https://github.com/Kiatra/EpicMusicPlayer_MP3)
 '*
 '* if you want to modify or include this with your addon, please ask first.
@@ -10,20 +10,28 @@
 musicfolder = "..\..\..\MyMusic"
 '* This is where the addon (not this script) will look for the music. It's relative to the WoW folder.
 realtiveMusicFolder = "MyMusic\\"
-'****************************************************************************************************************
+
+'************************************************ For Developers ************************************************
 '*
-'* Adding game music to the addon:
-'* To create a playlist from extracted game music extract the sound files from the path sound/music/..
-'* with a tool like wow tools or CASCExloprer
-'* and put the sound folder together with a matching listfile into a folder called gamemusic
-'* at the path of this script.
-gamemusic = ".\gamemusic"
-listfile = ".\gamemusic\listfile.csv"
-missingIDs = 0
+'*				Adding new ingame music to the addon after game patches
+'*
+'* To create a playlist from extracted game music: 
+'* 1. extract the sound files from the path sound/music/thewarwithin/.. with a tool like wow.export
+'* 2. create a folder called gamemusic and move the sound folder in there 
+'* 3. download a listfile and put it in the same folder like this script. 
+'*	(We need the IDs in there to play the songs.)
+'* 4. Run this script.
 '****************************************************************************************************************
+gamemusic = ".\gamemusic"
+listfile = ".\listfile.csv"
+'****************************************************************************************************************
+scripVersion = "4.1"
 
 'force the script to run in from a console
 CheckStartMode
+
+'count ids not found in the listfile for a extracted song
+missingIDs = 0
 
 'check Windows Version
 dim indexTitle, indexArtist, indexAlbum, indexTime
@@ -78,7 +86,7 @@ BinaryStream.CharSet = "utf-8"
 BinaryStream.Open
 
 'WScript.Echo "Generating the playlist, this may take some time..."
-BinaryStream.WriteText "--Created by PlaylistCreator.vbs version 4.0 (https://github.com/Kiatra/EpicMusicPlayer_MP3)" & Vbcrlf
+BinaryStream.WriteText "--Created by PlaylistCreator.vbs version " & scripVersion & " (https://github.com/Kiatra/EpicMusicPlayer_MP3)" & Vbcrlf
 BinaryStream.WriteText "local EpicMusicPlayer = LibStub(""AceAddon-3.0""):GetAddon(""EpicMusicPlayer"")" & Vbcrlf
 BinaryStream.WriteText "if not EpicMusicPlayer then return end" & Vbcrlf
 
@@ -99,20 +107,13 @@ playlistIndex = playlistIndex + 1
 'create a playlist for each subfolder of the music folder
 for each objFolder in objFolder.SubFolders
 	if objFolder.Files.Count > 0 or objFolder.Subfolders.count > 0 then
-		wscript.echo objFolder
-		if objFolder.name = "sound" then
-			addingGameMusic = 1
-			writeGameMusicInfo = 1
-		else
-			addingGameMusic = 0
-		end if
 		CreatePlaylist objFolder.Path
 		playlistIndex = playlistIndex + 1
 	end if
 next
 
 if isAddingGameMusicMode() then
-	BinaryStream.SaveToFile gamemusic & "/GameMusic.lua", adSaveCreateOverWrite
+	BinaryStream.SaveToFile "GameMusic.lua", adSaveCreateOverWrite
 else
 	BinaryStream.SaveToFile "CustomMusic.lua", adSaveCreateOverWrite
 end if
@@ -149,7 +150,16 @@ sub CreatePlaylist(byval strDirectory)
 	GetFiles strDirectory
 	'write end of playlist
 	BinaryStream.WriteText "}" & Vbcrlf
+	
+	if addingGameMusic then
+		BinaryStream.WriteText "if LE_EXPANSION_LEVEL_CURRENT > 7 then" & Vbcrlf
+	end if
+	
 	BinaryStream.WriteText "EpicMusicPlayer:AddPlayList(nil, playlist" & playlistIndex & ", false)" & Vbcrlf
+	
+	if addingGameMusic then
+		BinaryStream.WriteText "end"
+	end if
 end sub
 
 function getSongInfo(file,folder)
@@ -167,8 +177,15 @@ function getSongInfo(file,folder)
 		if time > 0 then
 			listCount = listCount + 1
 			totalNumberOfSongs = totalNumberOfSongs + 1
-			x = writeSong(outfile, path, album, time,title, artist)
-			WScript.Echo totalNumberOfSongs & " Writing: " & path
+			
+			dim id
+			id = getId(path)
+			if addingGameMusic and id = "00000" then
+				WScript.Echo totalNumberOfSongs & " ID not found in listfile for path: " & path
+			else
+				x = writeSong(outfile, path, album, time, title, artist)
+				WScript.Echo totalNumberOfSongs & " Writing: " & path & " ID: " & id & " runtime: " & time & "s"  
+			end if
 		end if
 	end if
 end function
@@ -191,7 +208,13 @@ sub writePlaylistHeader(listName)
 	BinaryStream.WriteText "local playlist" & playlistIndex &  " = {" & Vbcrlf
 	BinaryStream.WriteText "	[""listName""] = """ & listName &"""," & Vbcrlf
 	BinaryStream.WriteText "	[""playlistVersion""] = ""4.0""," & Vbcrlf
-	BinaryStream.WriteText "	[""playlistType""] = ""generated""," & Vbcrlf
+	
+	if addingGameMusic then
+		BinaryStream.WriteText "	[""locked""] =  ""true""," & Vbcrlf
+	else
+		BinaryStream.WriteText "	[""playlistType""] = ""generated""," & Vbcrlf
+	end if
+	
 	BinaryStream.WriteText "	{" & Vbcrlf
 
 end sub
@@ -236,13 +259,12 @@ function getWindowsVersion()
 end function
 
 function getId(ByVal path)
-  id = "00000"
+	id = "00000"
 	path = Replace(path, "\", "/")
-	WScript.Echo Vbcrlf & path
 	If objDictionary.Exists(path) Then
 		id = objDictionary(path)
 	else
-		missingIDs = missingIDs +  1
+		missingIDs = missingIDs + 1
 	end if
 	getId = id
 end function
@@ -254,7 +276,7 @@ function readListfile()
 	end if
 	dim fs,objTextFile
 	set fs=CreateObject("Scripting.FileSystemObject")
-	set objTextFile = fs.OpenTextFile(".\gamemusic\listfile.csv")
+	set objTextFile = fs.OpenTextFile(listfile)
 	dim arrStr
 
 	index = 0
