@@ -178,10 +178,12 @@ function getSongInfo(file,folder)
 			listCount = listCount + 1
 			totalNumberOfSongs = totalNumberOfSongs + 1
 			
-			dim id
-			id = getId(path)
-			if addingGameMusic and id = "00000" then
-				WScript.Echo totalNumberOfSongs & " ID not found in listfile for path: " & path
+			if addingGameMusic then
+				dim id
+				id = getId(path)
+				if id = "00000" then
+					WScript.Echo totalNumberOfSongs & " ID not found in listfile for path: " & path
+				end if
 			else
 				x = writeSong(outfile, path, album, time, title, artist)
 				WScript.Echo totalNumberOfSongs & " Writing: " & path & " ID: " & id & " runtime: " & time & "s"  
