@@ -10,5 +10,6 @@
 ## X-Category: Audio
 ## X-Curse-Project-ID: 102376
 ## X-WoWI-ID: 24777
+## IconTexture: Interface/AddOns/EpicMusicPlayer/media/icon
 
 CustomMusic.lua
