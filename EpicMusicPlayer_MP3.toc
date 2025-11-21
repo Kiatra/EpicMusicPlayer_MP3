@@ -1,8 +1,14 @@
-## Interface: @toc-version-retail@
-## Interface-Retail: @toc-version-retail@
+## Interface: @toc-version-retail@, @toc-version-midnight@
+#@debug@
+## Interface: 120000
+#@end-debug@>
+## Interface-Retail: @toc-version-retail@,@toc-version-midnight@
 ## Interface-Classic: @toc-version-classic@
 ## Interface-BCC: @toc-version-bcc@
 ## Interface-Wrath: @toc-version-wrath@
+## Interface-Cata: @toc-version-cata@
+## Interface-Mists: @toc-version-mists@
+## Category: Audio:
 ## Title: EpicMusicPlayer: MP3
 ## Notes: Custom music extension for EpicMusicPlayer
 ## Author: Kiatra (https://github.com/Kiatra/EpicMusicPlayer_MP3)
@@ -11,5 +17,6 @@
 ## X-Curse-Project-ID: 102376
 ## X-WoWI-ID: 24777
 ## IconTexture: Interface/AddOns/EpicMusicPlayer/media/icon
+## RequiredDeps: EpicMusicPlayer
 
 CustomMusic.lua
